@@ -1,6 +1,9 @@
+{% set route = getRoute() %}
+{% set pagesWithDisabledCartHover = ['front_cart', 'front_error_page', 'front_order_index', 'front_order_sent'] %}
+
 <div id="js-cart-box" data-reload-url="{{ url('front_cart_box') }}">
-    <div class="cart">
-        <a class="cart__block" href="{{ url('front_cart') }}">
+    <div class="cart {% if route not in pagesWithDisabledCartHover %} js-hover-intent{% endif %}">
+        <a class="cart__block {% if cart is null %} empty{% endif %}" href="{{ url('front_cart') }}">
             <span class="cart__icon">
                 <i class="svg svg-cart"></i>
             </span>
@@ -14,6 +17,85 @@
                 {% endif %}
             </div>
         </a>
+        <div class="cart__detail">
+            {% if cart is not null %}
+                <div class="cart-detail__wrap">
+                    <ul class="cart-detail">
+                        <li class="cart-detail__item">
+                            <div class="cart-detail__item__image">
+                                <img src="/assets/frontend/images/noimage.png" />
+                            </div>
+                            <div class="cart-detail__item__content">
+                                <a class="cart-detail__item__content__title" href="#" title="Název produktu">
+                                    Název produktu
+                                </a>
+                                <span class="cart-detail__item__content__price">
+                                    1 200 Kč
+                                </span>
+                            </div>
+                            <div class="cart-detail__item__pieces">
+                                1 ks
+                            </div>
+                            <span class="cart-detail__item__remove js-cart-ajax-remove" data-src="#" title="{{ 'Remove item'|trans }}">
+                                <i class="svg svg-remove"></i>
+                            </span>
+                        </li>
+                        <li class="cart-detail__item">
+                            <div class="cart-detail__item__image">
+                                <img src="/assets/frontend/images/noimage.png" />
+                            </div>
+                            <div class="cart-detail__item__content">
+                                <a class="cart-detail__item__content__title" href="#" title="Název produktu">
+                                    Název produktu
+                                </a>
+                                <span class="cart-detail__item__content__price">
+                                    1 200 Kč
+                                </span>
+                            </div>
+                            <div class="cart-detail__item__pieces">
+                                1 ks
+                            </div>
+                            <span class="cart-detail__item__remove js-cart-ajax-remove" data-src="#" title="{{ 'Remove item'|trans }}">
+                                <i class="svg svg-remove"></i>
+                            </span>
+                        </li>
+                        <li class="cart-detail__item">
+                            <div class="cart-detail__item__image">
+                                <img src="/assets/frontend/images/noimage.png" />
+                            </div>
+                            <div class="cart-detail__item__content">
+                                <a class="cart-detail__item__content__title" href="#" title="Název produktu">
+                                    Název produktu
+                                </a>
+                                <span class="cart-detail__item__content__price">
+                                    1 200 Kč
+                                </span>
+                            </div>
+                            <div class="cart-detail__item__pieces">
+                                1 ks
+                            </div>
+                            <span class="cart-detail__item__remove js-cart-ajax-remove" data-src="#" title="{{ 'Remove item'|trans }}">
+                                <i class="svg svg-remove"></i>
+                            </span>
+                        </li>
+                    </ul>
+                    <div class="cart-detail__total">
+                        <div class="cart-detail__total__text">
+                            {{ 'Celkem'|trans }}
+                        </div>
+                        <div class="cart-detail__total__price">
+                            1 200 Kč
+                        </div>
+                    </div>
+                </div>
+                <div class="cart-detail__bottom">
+                    <div class="cart-detail__bottom__button">
+                        <a href="{{ url('front_cart') }}" class="btn btn--success">{{ 'Přejít do košíku'|trans }}</a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
     </div>
 
     <div class="cart-mobile header__mobile-button">

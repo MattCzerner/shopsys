@@ -1,5 +1,6 @@
 @cart-icon-width: 30px;
 @cart-icon-gap: 10px;
+@cart-z-index: 6000;
 
 .cart {
     display: none;
@@ -12,8 +13,19 @@
 
         &__block {
             display: block;
+            padding: 10px;
 
             text-decoration: none;
+            border: 1px solid @color-border;
+
+            .open & {
+                border-bottom: 1px solid @color-f;
+                z-index: @cart-z-index;
+            }
+
+            &.empty {
+                border-bottom: 1px solid @color-border;
+            }
 
             &:hover {
                 text-decoration: none;
@@ -31,6 +43,18 @@
         &__info {
             margin-left: @cart-icon-width + @cart-icon-gap;
             max-width: 90px;
+        }
+
+        &__detail {
+            display: none;
+
+            .open & {
+                display: block;
+                position: absolute;
+                top: calc(~"100% - 1px");
+                right: 0;
+                z-index: @cart-z-index;
+            }
         }
     }
 }
