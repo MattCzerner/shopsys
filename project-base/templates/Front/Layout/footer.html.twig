@@ -9,6 +9,41 @@
             {{ render(controller('App\\Controller\\Front\\AdvertController:boxAction',{'positionName' : 'footer'})) }}
         </div>
     </div>
+
+    <div class="web__line web__line--grey">
+        <div class="web__container">
+            <div class="footer__links">
+                <div class="footer__links__column js-footer-link-wrapper">
+                    <div class="footer__links__title js-footer-link-title">
+                        {{ 'O nás'|trans }}
+                        <div class="footer__links__title__arrow">
+                            <i class="svg svg-arrow"></i>
+                        </div>
+                    </div>
+                    {% include 'Front/Content/Article/footerMenu.html.twig' %}
+                </div>
+                <div class="footer__links__column js-footer-link-wrapper">
+                    <div class="footer__links__title js-footer-link-title">
+                        {{ 'Naše služby'|trans }}
+                        <div class="footer__links__title__arrow">
+                            <i class="svg svg-arrow"></i>
+                        </div>
+                    </div>
+                    {% include 'Front/Content/Article/footerMenu.html.twig' %}
+                </div>
+                <div class="footer__links__column js-footer-link-wrapper">
+                    <div class="footer__links__title js-footer-link-title">
+                        {{ 'O nákupu'|trans }}
+                        <div class="footer__links__title__arrow">
+                            <i class="svg svg-arrow"></i>
+                        </div>
+                    </div>
+                    {% include 'Front/Content/Article/footerMenu.html.twig' %}
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="web__line">
         <footer class="web__container footer__bottom">
             <div class="footer__bottom__copyright dont-print">
