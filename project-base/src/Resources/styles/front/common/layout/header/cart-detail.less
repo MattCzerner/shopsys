@@ -1,8 +1,9 @@
-@cart-detail-width: 420px;
+@cart-detail-width: 250px;
 @cart-detail-padding: 20px;
 @cart-detail-remove-size: 13px;
 @cart-detail-item-remove-padding-width: 10px;
 
+@cart-detail-item-count: 3;
 @cart-detail-item-bottom-gap: 5px;
 @cart-detail-item-height: 71px;
 @cart-detail-item-image-size: 71px;
@@ -14,6 +15,9 @@
     .reset-ul();
     display: flex;
     flex-direction: column;
+    max-height: @cart-detail-item-count*@cart-detail-item-height;
+    width: @cart-detail-width;
+    overflow-y: auto;
 
     &__wrap {
         padding: @cart-detail-padding;
@@ -35,7 +39,7 @@
         &__image {
             position: relative;
             width: @cart-detail-item-image-size;
-            margin-right: @cart-detail-padding;
+            margin-right: 5px;
 
             img {
                 .center-image();
