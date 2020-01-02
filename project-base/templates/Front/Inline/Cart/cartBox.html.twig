@@ -2,8 +2,8 @@
 {% set pagesWithDisabledCartHover = ['front_cart', 'front_error_page', 'front_order_index', 'front_order_sent'] %}
 
 <div id="js-cart-box" data-reload-url="{{ url('front_cart_box') }}">
-    <div class="cart {% if route not in pagesWithDisabledCartHover %} js-hover-intent{% endif %}">
-        <a class="cart__block {% if cart is null %} empty{% endif %}" href="{{ url('front_cart') }}">
+    <div class="cart">
+        <div class="cart__block{% if cart is null %} empty{% endif %}{% if route not in pagesWithDisabledCartHover %} js-responsive-toggle{% else %} no-hover{% endif %}" data-element="js-cart-box-content" data-hide-on-click-out="true">
             <span class="cart__icon">
                 <i class="svg svg-cart"></i>
             </span>
@@ -16,8 +16,8 @@
                     {% endtranschoice %}
                 {% endif %}
             </div>
-        </a>
-        <div class="cart__detail">
+        </div>
+        <div class="cart__detail" id="js-cart-box-content">
             {% if cart is not null %}
                 <div class="cart-detail__wrap">
                     <ul class="cart-detail">

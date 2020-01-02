@@ -18,7 +18,7 @@
             text-decoration: none;
             border: 1px solid @color-border;
 
-            .open & {
+            &.active {
                 border-bottom: 1px solid @color-f;
                 z-index: @cart-z-index;
             }
@@ -28,7 +28,14 @@
             }
 
             &:hover {
+                color: @color-link;
+                cursor: pointer;
                 text-decoration: none;
+            }
+
+            &.no-hover {
+                cursor: default;
+                color: @color-0;
             }
         }
 
@@ -47,14 +54,10 @@
 
         &__detail {
             display: none;
-
-            .open & {
-                display: block;
-                position: absolute;
-                top: calc(~"100% - 1px");
-                right: 0;
-                z-index: @cart-z-index;
-            }
+            position: absolute;
+            top: calc(~"100% - 1px");
+            right: 0;
+            z-index: @cart-z-index;
         }
     }
 }
