@@ -1,5 +1,5 @@
-import Ajax from 'framework/common/ajax';
-import Register from 'framework/common/register';
+import Ajax from 'framework/common/utils/ajax';
+import Register from 'framework/common/utils/register';
 
 export default class OrderRememberData {
 
@@ -9,7 +9,7 @@ export default class OrderRememberData {
         OrderRememberData.delayedSaveDataTimer = setTimeout(function () {
             $this.trigger('change.orderRememberData');
         }, OrderRememberData.delayedSaveDataDelay);
-    };
+    }
 
     static saveData () {
         clearTimeout(OrderRememberData.delayedSaveDataTimer);
@@ -20,7 +20,7 @@ export default class OrderRememberData {
             data: $orderForm.serialize(),
             loaderElement: null
         });
-    };
+    }
 
     static init ($container) {
         $container.filterAllNodes('#js-order-form input, #js-order-form select, #js-order-form textarea')
@@ -28,7 +28,7 @@ export default class OrderRememberData {
 
         $container.filterAllNodes('#js-order-form input, #js-order-form textarea')
             .on('keyup.orderRememberData', OrderRememberData.delayedSaveData);
-    };
+    }
 }
 
 OrderRememberData.delayedSaveDataTimer = null;

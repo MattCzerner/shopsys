@@ -1,7 +1,7 @@
-import { KeyCodes } from '../../common/components/keyCodes';
-import Ajax from '../../common/ajax';
-import Register from '../../common/register';
-import Window from '../window';
+import { KeyCodes } from '../../common/utils/keyCodes';
+import Ajax from '../../common/utils/ajax';
+import Register from '../../common/utils/register';
+import Window from '../utils/window';
 import Translator from 'bazinga-translator';
 
 export default class GridInlineEdit {

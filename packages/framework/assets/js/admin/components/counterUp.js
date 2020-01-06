@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import 'waypoints/lib/jquery.waypoints';
 import 'jquery.counterup/jquery.counterup';
-import Register from '../../common/register';
+import Register from '../../common/utils/register';
 
 export default class CounterUp {
 

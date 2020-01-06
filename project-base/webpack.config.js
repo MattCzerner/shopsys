@@ -2,6 +2,7 @@ const path = require('path');
 const Encore = require('@symfony/webpack-encore');
 const EventHooksPlugin = require('event-hooks-webpack-plugin');
 const processTrans = require('./assets/js/commands/translations/process');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 if (!Encore.isRuntimeEnvironmentConfigured()) {
     Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev');
@@ -42,6 +43,12 @@ Encore
             processTrans(dirWithJsFiles, dirWithTranslations, outputDirForExportedTranslations);
         }
     }))
+    .addPlugin(new CopyWebpackPlugin([
+        {
+            from: '../packages/framework/assets/js',
+            to: '../../assets/js/framework'
+        }
+    ]))
 ;
 
 const config = Encore.getWebpackConfig();

@@ -1,10 +1,11 @@
-import { lazyLoadCall } from '../lazyLoadInit';
-import Register from 'framework/common/register';
-import Ajax from 'framework/common/ajax';
-import getBaseUrl from '../url';
-import pushReloadState from '../history';
+import { lazyLoadCall } from '../components/lazyLoadInit';
+import Register from 'framework/common/utils/register';
+import Ajax from 'framework/common/utils/ajax';
+import getBaseUrl from '../utils/url';
+import pushReloadState from '../components/history';
 
 export default class ProductListAjaxFilter {
+
     constructor () {
         this.$productsWithControls = $('.js-product-list-ajax-filter-products-with-controls');
         this.$productFilterForm = $('form[name="product_filter_form"]');
@@ -14,13 +15,14 @@ export default class ProductListAjaxFilter {
         this.requestDelay = 1000;
 
         const _this = this;
-        this.$productFilterForm.change(function () {
+        this.$productFilterForm.on('change', () => {
+            this.$productFilterForm.off('change');
             clearTimeout(this.requestTimer);
             _this.requestTimer = setTimeout(() => _this.submitFormWithAjax(_this), _this.requestDelay);
             pushReloadState(getBaseUrl() + '?' + _this.$productFilterForm.serialize());
         });
 
-        this.$showResultsButton.click(function () {
+        this.$showResultsButton.on('click', () => {
             const $productList = $('.js-product-list');
             if ($productList && $productList.offset()) {
                 $('html, body').animate({ scrollTop: $productList.offset().top }, 'slow');
@@ -28,7 +30,7 @@ export default class ProductListAjaxFilter {
             return false;
         });
 
-        this.$resetFilterButton.click(function () {
+        this.$resetFilterButton.on('click', () => {
             _this.$productFilterForm
                 .find(':radio, :checkbox').removeAttr('checked').end()
                 .find('textarea, :text, select').val('');
@@ -50,7 +52,7 @@ export default class ProductListAjaxFilter {
 
         lazyLoadCall(this.$productsWithControls);
         (new Register()).registerNewContent(this.$productsWithControls);
-    };
+    }
 
     updateFiltersCounts ($wrappedData) {
         const $existingCountElements = $('.js-product-filter-count');
@@ -64,7 +66,7 @@ export default class ProductListAjaxFilter {
 
             $existingCountElement.html($newCountElement.html());
         });
-    };
+    }
 
     updateFiltersDisabled () {
         $('.js-product-filter-count').each(function () {
@@ -83,7 +85,7 @@ export default class ProductListAjaxFilter {
                 $formElement.prop('disabled', false);
             }
         });
-    };
+    }
 
     submitFormWithAjax (productListAjaxFilter) {
         Ajax.ajax({
@@ -98,16 +100,18 @@ export default class ProductListAjaxFilter {
                 productListAjaxFilter.updateFiltersDisabled();
             }
         });
-    };
+    }
 
     static willFilterZeroProducts ($countElement) {
         return $countElement.html().indexOf('(0)') !== -1;
-    };
+    }
 
     static init () {
         $('.js-product-list-with-paginator').each(function () {
             // eslint-disable-next-line no-new
             new ProductListAjaxFilter();
         });
-    };
+    }
 }
+
+(new Register()).registerCallback(ProductListAjaxFilter.init);
