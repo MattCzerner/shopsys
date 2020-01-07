@@ -12,6 +12,7 @@ import './newsletterSubscriptionForm';
 import './promoCode';
 import './rangeSlider';
 import './repeater';
+import './responsiveTab';
 import './responsiveToggle';
 import './responsiveTooltip';
 import './safariDetection';
