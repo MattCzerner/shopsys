@@ -2,14 +2,14 @@ import Register from 'framework/common/utils/register';
 
 export default class ProductFilterBox {
 
-    constructor () {
-        $('.js-product-filter-open-button').click(event => {
+    constructor ($container) {
+        $container.filterAllNodes('.js-product-filter-open-button').click(event => {
             $(event.target).toggleClass('active');
-            $('.js-product-filter').toggleClass('active');
+            $container.filterAllNodes('.js-product-filter').toggleClass('active');
         });
 
         const _this = this;
-        $('.js-product-filter-box-arrow').on('click', event => {
+        $container.filterAllNodes('.js-product-filter-box-arrow').on('click', event => {
             _this.toggleFilterBox($(event.target).closest('.js-product-filter-box'));
         });
     }
@@ -27,9 +27,9 @@ export default class ProductFilterBox {
         }
     }
 
-    static init () {
+    static init ($container) {
         // eslint-disable-next-line no-new
-        new ProductFilterBox();
+        new ProductFilterBox($container);
     }
 }
 

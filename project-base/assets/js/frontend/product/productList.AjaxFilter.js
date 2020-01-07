@@ -6,18 +6,17 @@ import pushReloadState from '../components/history';
 
 export default class ProductListAjaxFilter {
 
-    constructor () {
-        this.$productsWithControls = $('.js-product-list-ajax-filter-products-with-controls');
-        this.$productFilterForm = $('form[name="product_filter_form"]');
-        this.$showResultsButton = $('.js-product-filter-show-result-button');
-        this.$resetFilterButton = $('.js-product-filter-reset-button');
+    constructor ($filter) {
+        this.$productsWithControls = $filter.filterAllNodes('.js-product-list-ajax-filter-products-with-controls');
+        this.$productFilterForm = $filter.filterAllNodes('form[name="product_filter_form"]');
+        this.$showResultsButton = $filter.filterAllNodes('.js-product-filter-show-result-button');
+        this.$resetFilterButton = $filter.filterAllNodes('.js-product-filter-reset-button');
         this.requestTimer = null;
         this.requestDelay = 1000;
 
         const _this = this;
         this.$productFilterForm.on('change', () => {
-            this.$productFilterForm.off('change');
-            clearTimeout(this.requestTimer);
+            clearTimeout(_this.requestTimer);
             _this.requestTimer = setTimeout(() => _this.submitFormWithAjax(_this), _this.requestDelay);
             pushReloadState(getBaseUrl() + '?' + _this.$productFilterForm.serialize());
         });
@@ -30,13 +29,12 @@ export default class ProductListAjaxFilter {
             return false;
         });
 
-        this.$resetFilterButton.on('click', () => {
-            _this.$productFilterForm
-                .find(':radio, :checkbox').removeAttr('checked').end()
-                .find('textarea, :text, select').val('');
+        this.$resetFilterButton.on('click', (event) => {
+            _this.$productFilterForm.find(':radio, :checkbox').prop('checked', false);
+            _this.$productFilterForm.find('textarea, :text, select').val('');
             _this.$productFilterForm.find('.js-product-filter-call-change-after-reset').change();
-            clearTimeout(this.requestTimer);
-            const resetUrl = $(this).attr('href');
+            clearTimeout(_this.requestTimer);
+            const resetUrl = $(event.target).attr('href');
             pushReloadState(resetUrl);
             _this.submitFormWithAjax(_this);
             return false;
@@ -58,8 +56,8 @@ export default class ProductListAjaxFilter {
         const $existingCountElements = $('.js-product-filter-count');
         const $newCountElements = $wrappedData.find('.js-product-filter-count');
 
-        $newCountElements.each(function () {
-            const $newCountElement = $(this);
+        $newCountElements.each((index,  element) => {
+            const $newCountElement = $(element);
 
             const $existingCountElement = $existingCountElements
                 .filter('[data-form-id="' + $newCountElement.data('form-id') + '"]');
@@ -69,8 +67,8 @@ export default class ProductListAjaxFilter {
     }
 
     updateFiltersDisabled () {
-        $('.js-product-filter-count').each(function () {
-            const $countElement = $(this);
+        $('.js-product-filter-count').each(function (index, element) {
+            const $countElement = $(element);
 
             const $label = $countElement.closest('label');
             const $formElement = $('#' + $countElement.data('form-id'));
@@ -106,11 +104,11 @@ export default class ProductListAjaxFilter {
         return $countElement.html().indexOf('(0)') !== -1;
     }
 
-    static init () {
-        $('.js-product-list-with-paginator').each(function () {
+    static init ($container) {
+        if ($container.filterAllNodes('.js-product-list-with-paginator').length > 0) {
             // eslint-disable-next-line no-new
-            new ProductListAjaxFilter();
-        });
+            new ProductListAjaxFilter($container);
+        }
     }
 }
 
