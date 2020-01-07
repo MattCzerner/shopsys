@@ -67,6 +67,7 @@ class OrderCest
 
         $orderPage->assertTransportIsNotSelected('Czech post');
         $orderPage->selectTransport(self::TRANSPORT_CZECH_POST_POSITION);
+        $me->waitForAjax();
         $orderPage->assertPaymentIsNotSelected('Cash on delivery');
         $orderPage->selectPayment(self::PAYMENT_CACHE_ON_DELIVERY);
         $me->waitForAjax();
@@ -150,12 +151,14 @@ class OrderCest
         $me->clickByTranslationFrontend('Order [verb]');
 
         $orderPage->selectTransport(self::TRANSPORT_CZECH_POST_POSITION);
+        $me->waitForAjax();
         $orderPage->selectPayment(self::PAYMENT_CACHE_ON_DELIVERY);
         $me->waitForAjax();
         $me->clickByTranslationFrontend('Continue in order');
 
         $orderPage->fillPersonalInfo('Karel', 'Novák', 'no-reply@shopsys.com', '123456789');
         $orderPage->fillBillingAddress('Koksární 10', 'Ostrava', '702 00');
+        $me->waitForAjax();
         $orderPage->acceptLegalConditions();
 
         $me->clickByTranslationFrontend('Finish the order');
