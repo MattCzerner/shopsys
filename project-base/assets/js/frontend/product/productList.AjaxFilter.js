@@ -56,7 +56,7 @@ export default class ProductListAjaxFilter {
         const $existingCountElements = $('.js-product-filter-count');
         const $newCountElements = $wrappedData.find('.js-product-filter-count');
 
-        $newCountElements.each((index,  element) => {
+        $newCountElements.each((index, element) => {
             const $newCountElement = $(element);
 
             const $existingCountElement = $existingCountElements
