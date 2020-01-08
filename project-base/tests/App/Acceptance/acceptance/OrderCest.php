@@ -93,6 +93,7 @@ class OrderCest
         $me->clickByTranslationFrontend('Go to cart');
         $me->clickByTranslationFrontend('Order [verb]');
         $orderPage->selectTransport(self::TRANSPORT_CZECH_POST_POSITION);
+        $me->waitForAjax();
         $orderPage->selectPayment(self::PAYMENT_CACHE_ON_DELIVERY);
         $me->waitForAjax();
         $me->clickByTranslationFrontend('Continue in order');
