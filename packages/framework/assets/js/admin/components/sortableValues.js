@@ -5,7 +5,7 @@ export default class SortableValues {
 
     constructor ($container) {
         $container.filterAllNodes('.js-sortable-values-item-add').click((event) => this.addItemButtonClick(event));
-        $container.filterAllNodes('.js-sortable-values-item-remove').click(() => this.removeItemButtonClick());
+        $container.filterAllNodes('.js-sortable-values-item-remove').click((event) => this.removeItemButtonClick(event));
 
         $container.filterAllNodes('.js-sortable-values-items').sortable({
             items: '.js-sortable-values-item',
