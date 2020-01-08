@@ -21,8 +21,8 @@ export default class ProductPicker {
         this.$pickerButton.click((event) => _this.makePicker(event));
         this.$removeButton.toggle(this.$label.val() !== this.$container.data('placeholder'));
 
-        this.$removeButton.click(function () {
-            _this.selectProduct('', this.$container.data('placeholder'));
+        this.$removeButton.click(() => {
+            _this.selectProduct('', _this.$container.data('placeholder'));
             return false;
         });
     }
