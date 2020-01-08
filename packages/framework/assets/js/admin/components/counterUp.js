@@ -4,11 +4,11 @@ import Register from '../../common/utils/register';
 export default class CounterUp {
 
     static init () {
-        document.querySelectorAll( '.js-counter' ).forEach(counterItem => {
-            counterUp( counterItem, {
+        document.querySelectorAll('.js-counter').forEach(counterItem => {
+            counterUp(counterItem, {
                 duration: 1000,
-                delay: 10,
-            } )
+                delay: 10
+            });
         });
     }
 
