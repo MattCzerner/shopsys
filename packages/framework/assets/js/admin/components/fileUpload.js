@@ -97,7 +97,7 @@ export default class FileUpload {
 
     onUploadSuccess (id, data) {
         if (data.status === 'success') {
-            if (this.lastUploadItemId !== null && multiple === false) {
+            if (this.lastUploadItemId !== null && this.multiple === false) {
                 this.items[this.lastUploadItemId].deleteItem();
             }
             this.lastUploadItemId = id;
