@@ -40,7 +40,9 @@ Encore
             const dirWithTranslations = './translations/';
             const outputDirForExportedTranslations = Encore.isProduction() ? './web/build/' : './assets/js/';
 
-            processTrans(dirWithJsFiles, dirWithTranslations, outputDirForExportedTranslations);
+            try {
+                processTrans(dirWithJsFiles, dirWithTranslations, outputDirForExportedTranslations);
+            } catch (e) {}
         }
     }))
     .addPlugin(new CopyWebpackPlugin([
