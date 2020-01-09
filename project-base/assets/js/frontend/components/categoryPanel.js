@@ -1,5 +1,6 @@
 import Ajax from 'framework/common/utils/ajax';
 import Register from 'framework/common/utils/register';
+import Responsive from '../utils/responsive';
 
 export default class CategoryPanel {
 
@@ -45,6 +46,14 @@ export default class CategoryPanel {
     static init ($container) {
         $container.filterAllNodes('.js-category-collapse-control')
             .on('click', (event) => (new CategoryPanel()).onCategoryCollapseControlClick(event));
+
+        if (!Responsive.isDesktopVersion()) {
+            $container.filterAllNodes('.js-category-collapse-control').each((index, element) => {
+                if ($(element).parent().siblings('.js-category-list-placeholder').length === 0) {
+                    $(element).addClass('open');
+                }
+            });
+        }
     }
 }
 
