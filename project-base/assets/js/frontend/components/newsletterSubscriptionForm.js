@@ -19,15 +19,9 @@ export default class NewsletterSubscriptionForm {
     }
 
     onSuccess (data) {
-        $(subscriptionFormSelector).replaceWith(data);
-
-        // We must select again from modified DOM, because replaceWith() does not change previous jQuery collection.
-        const $newContent = $(subscriptionFormSelector);
-        const $emailInput = $newContent.find('input[name="subscription_form[email]"]');
-
-        (new Register()).registerNewContent($newContent);
-        if ($newContent.data('success')) {
-            $emailInput.val('');
+        if ($(data).data('success')) {
+            $(subscriptionFormSelector).find('input[name="subscription_form[email]"]').val('');
+            $(subscriptionFormSelector).find('input[name="subscription_form[privacyPolicyAgreement]"]').prop('checked', false);
 
             // eslint-disable-next-line no-new
             new Window({
