@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y wget gnupg g++ locales unzip dialog apt
 # Install NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash
 RUN apt-get update && apt-get install -y nodejs && apt-get clean
+RUN mkdir ~/.npm-global
 
 # install Composer
 COPY ${project_root}/docker/php-fpm/docker-install-composer /usr/local/bin/docker-install-composer

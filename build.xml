@@ -2,6 +2,7 @@
 <project name="Shopsys Framework" default="list">
 
     <property name="check-and-fix-annotations" value="true"/>
+    <property name="npm.framework" value="@pesovo/framework"/>
     <property name="path.root" value="${project.basedir}/project-base"/>
     <property name="path.vendor" value="${project.basedir}/vendor"/>
     <property name="path.packages" value="${project.basedir}/packages"/>
@@ -178,6 +179,36 @@
     <target name="eslint-fix-diff" hidden="true">
         <echo level="info" message="Fixing only changed files via 'eslint-fix-diff' not supported in monorepo. Running 'eslint-fix' instead..."/>
         <phingcall target="eslint-fix"/>
+    </target>
+
+    <target name="npm" description="Installs modules required for Grunt.">
+        <exec executable="${path.npm.executable}" dir="${path.root}" logoutput="true" passthru="true" checkreturn="true">
+            <arg value="prune"/>
+            <arg value="--no-audit"/>
+        </exec>
+
+        <exec executable="${path.npm.executable}" dir="${path.root}" logoutput="true" passthru="true" checkreturn="true">
+            <arg value="install"/>
+        </exec>
+
+        <exec executable="${path.npm.executable}" dir="${path.framework}/assets" logoutput="true" passthru="true" checkreturn="true">
+            <arg value="link"/>
+        </exec>
+
+        <exec executable="${path.npm.executable}" dir="${path.root}" logoutput="true" passthru="true" checkreturn="true">
+            <arg value="link"/>
+            <arg value="${npm.framework}"/>
+        </exec>
+
+        <exec executable="${path.npm.executable}" dir="${path.root}" logoutput="true" passthru="true" checkreturn="true">
+            <arg value="run"/>
+            <arg value="trans"/>
+        </exec>
+
+        <exec executable="${path.npm.executable}" dir="${path.root}" logoutput="true" passthru="true" checkreturn="true">
+            <arg value="run"/>
+            <arg value="build"/>
+        </exec>
     </target>
 
     <target name="phing-config-check" description="Checks the syntax of Phing configuration." hidden="true">

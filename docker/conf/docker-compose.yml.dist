@@ -46,6 +46,8 @@ services:
             - .:/var/www/html
         ports:
             - "35729:35729"
+        environment:
+            - NPM_CONFIG_PREFIX=~/.npm-global
 
     redis:
         image: redis:4.0-alpine

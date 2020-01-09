@@ -665,11 +665,6 @@
 
         <exec executable="${path.npm.executable}" dir="${path.root}" logoutput="true" passthru="true" checkreturn="true">
             <arg value="run"/>
-            <arg value="copyFw"/>
-        </exec>
-
-        <exec executable="${path.npm.executable}" dir="${path.root}" logoutput="true" passthru="true" checkreturn="true">
-            <arg value="run"/>
             <arg value="trans"/>
         </exec>
 
