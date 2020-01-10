@@ -38,10 +38,13 @@ class ProductResolverMap extends ResolverMap
     {
         return [
             'Product' => [
-                self::RESOLVE_TYPE => function (Product $product) {
-                    if ($product->isMainVariant()) {
+                self::RESOLVE_TYPE => function ($data) {
+                    $isMainVariant = $data instanceof Product ? $data->isMainVariant() : $data['is_main_variant'];
+                    $isVariant = $data instanceof Product ? $data->isVariant() : $data['main_variant'] !== null;
+
+                    if ($isMainVariant) {
                         return 'MainVariant';
-                    } elseif ($product->isVariant()) {
+                    } elseif ($isVariant) {
                         return 'Variant';
                     } else {
                         return 'RegularProduct';
@@ -60,26 +63,27 @@ class ProductResolverMap extends ResolverMap
     protected function mapProduct(): array
     {
         return [
-            'shortDescription' => function (Product $product) {
-                return $product->getShortDescription($this->domain->getId());
+            'shortDescription' => function ($data) {
+                return $data instanceof Product ? $data->getShortDescription($this->domain->getId()) : $data['short_description'];
             },
-            'link' => function (Product $product) {
-                return $this->getProductLink($product);
+            'link' => function ($data) {
+                $productId = $data instanceof Product ? $data->getId() : $data['id'];
+                return $this->getProductLink($productId);
             },
-            'categories' => function (Product $product) {
-                return $product->getCategoriesIndexedByDomainId()[$this->domain->getId()];
+            'categories' => function ($data) {
+                return $data instanceof Product ? $data->getCategoriesIndexedByDomainId()[$this->domain->getId()] : $data['categories'];
             },
         ];
     }
 
     /**
-     * @param \Shopsys\FrameworkBundle\Model\Product\Product $product
+     * @param int $productId
      * @return string
      */
-    protected function getProductLink(Product $product): string
+    protected function getProductLink(int $productId): string
     {
-        $absoluteUrlsIndexedByProductId = $this->productCollectionFacade->getAbsoluteUrlsIndexedByProductId([$product->getId()], $this->domain->getCurrentDomainConfig());
+        $absoluteUrlsIndexedByProductId = $this->productCollectionFacade->getAbsoluteUrlsIndexedByProductId([$productId], $this->domain->getCurrentDomainConfig());
 
-        return $absoluteUrlsIndexedByProductId[$product->getId()];
+        return $absoluteUrlsIndexedByProductId[$productId];
     }
 }
