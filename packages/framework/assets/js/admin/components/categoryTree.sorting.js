@@ -51,7 +51,7 @@ export default class CategoryTreeSorting {
                 FormChangeInfo.removeInfo();
                 // eslint-disable-next-line no-new
                 new Window({
-                    content: Translator.trans('Order saved.')
+                    content: Translator.trans('Categories order saved.')
                 });
             },
             error: function () {
