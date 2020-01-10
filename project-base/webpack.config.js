@@ -42,7 +42,9 @@ Encore
 
             try {
                 processTrans(dirWithJsFiles, dirWithTranslations, outputDirForExportedTranslations);
-            } catch (e) {}
+            } catch (e) {
+                console.log('Parsing files for translations has failed.');
+            }
         }
     }))
     .addPlugin(new CopyWebpackPlugin([
