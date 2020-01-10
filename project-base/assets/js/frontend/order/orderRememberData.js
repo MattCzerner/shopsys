@@ -11,14 +11,14 @@ export default class OrderRememberData {
         }, OrderRememberData.delayedSaveDataDelay);
     }
 
-    static saveData () {
+    static saveData (event) {
         clearTimeout(OrderRememberData.delayedSaveDataTimer);
         const $orderForm = $('#js-order-form');
         Ajax.ajaxPendingCall('Shopsys.orderRememberData.saveData', {
             type: 'POST',
             url: $orderForm.data('ajax-save-url'),
             data: $orderForm.serialize(),
-            loaderElement: null
+            loaderElement: $(event.target)
         });
     }
 
